@@ -1,5 +1,4 @@
 # AS24-Frontend
-## Repo to complete the task of AS24 frontend
 ### How to run the project
 
 ### Todo
