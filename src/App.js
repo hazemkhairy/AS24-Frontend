@@ -1,9 +1,9 @@
 import './App.css';
-
+import InputsContainer from './containers/InputsContainer/InputsContainer'
 function App() {
   return (
     <div className="App">
-      <h1>TEST</h1>
+      <InputsContainer/>
     </div>
   );
 }
