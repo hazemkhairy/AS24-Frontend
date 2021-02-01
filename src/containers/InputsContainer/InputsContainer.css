@@ -1,6 +1,20 @@
 .InputsContainer {
-    min-width: 30%;
-    border-radius: 20%;
+    min-width: 50%;
+    border-radius: 20px;
     padding: 2%;
     border: 2px solid black;
+    
+}
+
+.errorDiv {
+    max-height: 300px;
+    overflow-y: scroll;
+    border: 1px solid red;
+    padding: 10px;
+}
+.errorMessage{
+    border: 1px solid red;
+    border-radius: 2%;
+    margin-top: 1%;
+    text-align: center;
 }

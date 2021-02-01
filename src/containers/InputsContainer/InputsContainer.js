@@ -8,7 +8,8 @@ import './InputsContainer.css';
 const InputsContainer = ({ setReports }) => {
     const [listingsFile, setListingsFile] = useState(null);
     const [contactsFile, setContactsFile] = useState(null);
-
+    const [backendError, setBackendError] = useState(false);
+    const [backendErrorMessages, setBackendErrorMessages] = useState([]);
     const [listingError, setListingsError] = useState(false);
     const [contactsError, setContactssError] = useState(false);
 
@@ -16,12 +17,19 @@ const InputsContainer = ({ setReports }) => {
         axios.post('http://localhost:4000/generateReports', { useDefault: true }).then(
             (res) => {
                 if (res.status !== 200) {
-                    console.log(res.data.messages)
+                    setBackendError(true);
+                    setBackendErrorMessages(res.data.messages.slice(0,100));
                 }
                 else {
-                    console.log(res.data);
+                    setBackendError(false);
                     setReports(res.data);
                 }
+            }
+        ).catch(
+            err => {
+                setBackendError(true);
+                if (err.response.data.messages)
+                    setBackendErrorMessages(err.response.data.messages.slice(0,100));
             }
         )
     }
@@ -30,15 +38,23 @@ const InputsContainer = ({ setReports }) => {
         if (isValidInput()) {
             fd.append('files', listingsFile, "listings.csv");
             fd.append('files', contactsFile, "contacts.csv");
+            console.log(fd)
             axios.post('http://localhost:4000/generateReports', fd).then(
                 (res) => {
                     if (res.status !== 200) {
-                        console.log(res.messages)
+                        setBackendError(true);
+                        setBackendErrorMessages(res.data.messages.slice(0,100));
                     }
                     else {
-                        console.log(res.data);
+                        setBackendError(false);
                         setReports(res.data);
                     }
+                }
+            ).catch(
+                err => {
+                    setBackendError(true);
+                    if (err.response.data.messages)
+                        setBackendErrorMessages(err.response.data.messages.slice(0,100));
                 }
             )
         }
@@ -61,6 +77,13 @@ const InputsContainer = ({ setReports }) => {
         }
         return valid;
     }
+    const getBackendErrorMessages = () => {
+        return backendErrorMessages.map((message) => {
+            return <div className="errorMessage">
+                <p className="p-0 m-1"> {message} </p>
+            </div>
+        })
+    }
     return (
         <div className="InputsContainer d-flex flex-column align-items-center justify-content-between">
             <FileInput error={listingError} placeHolder="Listings File" setFile={setListingsFile} />
@@ -71,6 +94,13 @@ const InputsContainer = ({ setReports }) => {
                 <label>OR</label>
                 <input type="button" onClick={handleDefault} value="Use Default Files" className="btn btn-primary" />
             </div>
+            {backendError && <div className="mt-2">
+                <input type="button" value="Clear errors" className="btn btn-danger mb-2" onClick={() => { setBackendError(false) }} />
+                <div className="errorDiv">
+
+                    {getBackendErrorMessages()}
+                </div>
+            </div>}
         </div>
     )
 }

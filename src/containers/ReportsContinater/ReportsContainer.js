@@ -8,14 +8,17 @@ const ReportsContainer = ({ Reports, clearReports }) => {
 
     const getMostContactedListingsPerMonth = () => {
         return Reports.topMostContactedListingsPerMonth.reports.map(
-            (report,index) => {
+            (report, index) => {
 
                 return <TableReport Key={`topMost-${report.date}-${index}`} report={report.report} reportName={report.date} />
             }
         )
     }
     return <Container fluid>
+        <Row className="justify-content-md-center mb-3">
 
+            <input type="button" className="btn btn-danger" onClick={clearReports} value="Clear Reports" />
+        </Row>
         <Row className=" mb-3 justify-content-md-center">
             <Col xs={12} md={4}>
 
@@ -34,10 +37,7 @@ const ReportsContainer = ({ Reports, clearReports }) => {
                 </div>
             </Col>
         </Row>
-        <Row className="justify-content-md-center">
 
-            <input type="button" className="btn btn-danger" onClick={clearReports} value="Clear Reports" />
-        </Row>
     </Container>
 }
 
