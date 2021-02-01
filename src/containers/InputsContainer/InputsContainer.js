@@ -18,18 +18,19 @@ const InputsContainer = ({ setReports }) => {
             (res) => {
                 if (res.status !== 200) {
                     setBackendError(true);
-                    setBackendErrorMessages(res.data.messages.slice(0,100));
+                    setBackendErrorMessages(res.data.messages.slice(0, 100));
                 }
                 else {
                     setBackendError(false);
-                    setReports(res.data);
+                    if (res.data)
+                        setReports(res.data);
                 }
             }
         ).catch(
             err => {
                 setBackendError(true);
-                if (err.response.data.messages)
-                    setBackendErrorMessages(err.response.data.messages.slice(0,100));
+                if (err.response && err.response.data && err.response.data.messages)
+                    setBackendErrorMessages(err.response.data.messages.slice(0, 100));
             }
         )
     }
@@ -43,18 +44,19 @@ const InputsContainer = ({ setReports }) => {
                 (res) => {
                     if (res.status !== 200) {
                         setBackendError(true);
-                        setBackendErrorMessages(res.data.messages.slice(0,100));
+                        setBackendErrorMessages(res.data.messages.slice(0, 100));
                     }
                     else {
                         setBackendError(false);
-                        setReports(res.data);
+                        if (res.data)
+                            setReports(res.data);
                     }
                 }
             ).catch(
                 err => {
                     setBackendError(true);
-                    if (err.response.data.messages)
-                        setBackendErrorMessages(err.response.data.messages.slice(0,100));
+                    if (err.response && err.response.data && err.response.data.messages)
+                        setBackendErrorMessages(err.response.data.messages.slice(0, 100));
                 }
             )
         }
@@ -78,6 +80,10 @@ const InputsContainer = ({ setReports }) => {
         return valid;
     }
     const getBackendErrorMessages = () => {
+        if (backendErrorMessages.length === 0)
+            return <div className="errorMessage">
+                <p className="p-0 m-1"> Unkown error </p>
+            </div>
         return backendErrorMessages.map((message) => {
             return <div className="errorMessage">
                 <p className="p-0 m-1"> {message} </p>
