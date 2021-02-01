@@ -1,7 +1,6 @@
 .InputsContainer {
-    width: 60%;
-    min-height: 400px;
-    border-radius: 8%;
+    min-width: 30%;
+    border-radius: 20%;
     padding: 2%;
     border: 2px solid black;
 }

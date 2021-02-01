@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import './InputsContainer.css';
 
-const InputsContainer = () => {
+const InputsContainer = ({setReports}) => {
     const handleDefault = () => {
         axios.post('http://localhost:4000/generateReports').then(
             (res) => {
@@ -12,6 +12,7 @@ const InputsContainer = () => {
                 }
                 else {
                     console.log(res.data);
+                    setReports(res.data);
                 }
             }
         )
