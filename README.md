@@ -3,6 +3,6 @@
 
 ### Todo
 - [X] Init the project.
-- [ ] Create UI to test requesting reports from the backend.
-- [ ] Create UI Component to display the reports.
+- [X] Create UI to test requesting reports from the backend.
+- [X] Create UI Component to display the reports.
 - [ ] Create UI to Upload files.
