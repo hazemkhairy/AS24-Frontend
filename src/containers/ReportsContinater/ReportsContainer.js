@@ -8,9 +8,9 @@ const ReportsContainer = ({ Reports, clearReports }) => {
 
     const getMostContactedListingsPerMonth = () => {
         return Reports.topMostContactedListingsPerMonth.reports.map(
-            report => {
+            (report,index) => {
 
-                return <TableReport report={report.report} reportName={report.date} />
+                return <TableReport Key={`topMost-${report.date}-${index}`} report={report.report} reportName={report.date} />
             }
         )
     }
@@ -20,8 +20,8 @@ const ReportsContainer = ({ Reports, clearReports }) => {
             <Col xs={12} md={4}>
 
                 <TableReport report={Reports.averageListingSellingPrice} reportName="Average Listing Selling Price per Seller Type" />
-                <TableReport report={Reports.averagePriceOfTheMostContactedListings} reportName="Average price of the 30% most contacted listings" />
                 <TableReport report={Reports.percentualDistributionByMake} reportName="Percentual distribution of available cars by Make" />
+                <TableReport report={Reports.averagePriceOfTheMostContactedListings} reportName="Average price of the 30% most contacted listings" />
             </Col>
 
             <Col xs={12} md={8} className="d-flex flex-column">
